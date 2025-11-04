@@ -1,0 +1,61 @@
+// Worst , Best and Average time complexity : O(nlog n)
+// Space complexity is O(n)
+
+// This is divide and conquer algorithm
+//in this we divide the array in to two half and we merge them together
+#include<stdio.h>
+void merge(int arr[],int n,int start,int mid,int end)
+{
+    //first half from start to mid second half from mid+1 to end
+    int i=start;
+    int j=mid+1;
+    
+    int b[end-start+1];
+    int k=0;
+    while(i<=mid && j<=end)
+    {
+        if(arr[i]<arr[j])
+        b[k++]=arr[i++];
+        else
+        b[k++]=arr[j++];
+    }
+    //if any remaining terms in the array then store them into the duplicate array
+    while(i<=mid)
+    b[k++]=arr[i++];
+    while(j<=end)
+    b[k++]=arr[j++];
+    // copy the elements from the duplicate aray into the origial array
+    k=0;
+    for(int i=start;i<=end;i++)
+    {
+     arr[i]=b[k++];
+    }
+}
+// divide the array into two halves 
+void mergesort(int arr[],int n,int start,int end)
+{
+    if(start>=end)
+    return;
+    int mid = (start+end)/2;
+    // again divide the first half
+    mergesort(arr,n,start,mid);
+    // divide the second half
+    mergesort(arr,n,mid+1,end);
+    //now merge the divided arraya
+    merge(arr,n,start,mid,end);
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    mergesort(arr,n,0,n-1);
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+}

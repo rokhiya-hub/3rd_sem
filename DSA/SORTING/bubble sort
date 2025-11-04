@@ -1,0 +1,44 @@
+// TIME COMPLEXITY IS 0(n^2).
+#include<stdio.h>
+void bubblesort(int arr[],int i,int j,int n)
+{
+    //BASE CASE IF ALL PASSES ARE DONE
+    if(i>=n)
+    return;
+    // BASE CASE IF ONE PASS IS DONE
+    if(j>=n-1)
+    return;
+/*  
+   1. Compares the adjacent elements in the array
+   2. If an element is greater than next element then swap them
+   3.After each pass the greater element will reach to its correct poistion
+   4. we kept the condition j<n-1 because the graeter element is reached to its correct last position
+*/
+    if(j<n-1 && arr[j]>arr[j+1])
+    {
+        int temp = arr[j];
+        arr[j]=arr[j+1];
+        arr[j+1]=temp;
+    }
+    //For each pass we call the function by incrementing j so that it will check adjacent elements 
+    bubblesort(arr,i,j+1,n);
+    // we increament the i so that we can do the next pass.
+    bubblesort(arr,i+1,j,n);
+}
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    //CALLS BUBBLESORT FUNCTION
+    bubblesort(arr,0,0,n);
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    return 0;
+}

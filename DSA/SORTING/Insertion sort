@@ -1,0 +1,45 @@
+/*TIME COMPLEXITY :
+   1. BEST --> O(n)
+   2. AVERAGE AND WORST --> O(n^2)
+   SPACE COMPLEXITY : O(1)
+*/
+#include<stdio.h>
+void InsertionSort(int Arr[], int n)
+{
+//Iterate each element from the second to last 
+    for(int i = 1 ; i < n ; i++)
+    {
+        //take the first element from the unsorted array this is the element to inserted into its correct position
+        int temp = Arr[i];
+        //start from the last element of the sorted array
+        int j = i - 1;
+        //shift the element to the right if they are greater than the temp
+        while(j >= 0 && Arr[j] > temp)
+        {
+            Arr[j+1] = Arr[j];
+            j--;
+        }
+        //insert the temp to the right position
+        Arr[j+1] = temp;
+    }
+}
+/*
+ 1. Outer loop: This loop iterates through each element of the array starting from the second element (index 1).
+ 2. Inner loop: For each element, we compare it with elements to its left (in the sorted portion of the array) and move those larger elements one position to the right.
+ 3. Insertion: Once the correct position for the current element is found, it is inserted there.
+*/
+int main(){
+    int n;
+    scanf("%d", &n);
+    int Arr[n];
+    for(int i=0; i<n; i++)
+    {
+        scanf("%d", &Arr[i]);
+    }
+    InsertionSort(Arr,n);
+    //Sorted array is obtained ready to print
+    for(int i = 0 ; i < n ; i++)
+    {
+        printf("%d ", Arr[i]);
+    }
+}

@@ -1,0 +1,59 @@
+/*
+    BEST AND AVERAGE TIME COMPLEXITY : O(nlogn)
+    WORST TIME COMPLEXITY IS : O(n^2)
+     BEST AND AVERAGE SPACE COMPLEXITY : O(logn)
+    WORST SPACE COMPLEXITY IS : O(n)
+*/
+#include <stdio.h>
+
+int partition(int a[], int start, int end) {
+    int pivot = a[start]; // Choosing pivot as the first element
+    int s = start + 1; 
+    int e = end;
+
+    while (s <= e) {
+        while (s <= e && a[s] <= pivot) {
+            s++;
+        }
+        while (s <= e && a[e] > pivot) {
+            e--;
+        }
+        if (s < e) {
+            int temp = a[s];
+            a[s] = a[e];
+            a[e] = temp;
+        }
+    }
+
+    // Swap pivot into its correct position
+    int temp = a[start];
+    a[start] = a[e];
+    a[e] = temp;
+
+    return e; // Return partition index
+}
+
+void quicksort(int a[], int start, int end) {
+    if (start < end) {
+        int p = partition(a, start, end);
+        quicksort(a, start, p - 1);
+        quicksort(a, p + 1, end);
+    }
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    int a[n];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    quicksort(a, 0, n - 1);
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+    
+    return 0;
+}
